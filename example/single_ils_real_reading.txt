@@ -1,0 +1,62 @@
+==header
+name=gendnis
+alamat=ngentak
+==header-end
+
+==data-row-1
+umur_bulan=25
+waktu_kunjungan=18-05-26
+berat=13.05
+N(ormal)
+N(ormal)
+Panjang=91.2
+N
+GB (Gizi baik)
+Lingkar_kepala=46.5
+Normal
+Lingkar_Lengan_atas=14.5
+[empty]
+T(idak)
+T(idak)
+T(idak)
+T(idak)
+ASI Ekslusif=Tidak
+MP ASI = y
+Imunisasi = y
+Vitamin A = [empty]
+Obat Cacing = [empty]
+T
+Gejala sakit = -
+rujuk puskesmas = -
+==end-data-row-1
+
+==data-row-2
+umur_bulan=26
+waktu_kunjungan=13-06-26
+berat=12.50
+T(urun)
+N(ormal)
+Panjang=92.5
+N
+GB (Gizi baik)
+Lingkar_kepala=48
+Normal
+Lingkar_Lengan_atas=14.5
+[empty]
+T(idak)
+T(idak)
+T(idak)
+T(idak)
+ASI Ekslusif=Tidak
+MP ASI = y
+Imunisasi = y
+Vitamin A = [empty]
+Obat Cacing = [empty]
+T
+Gejala sakit = -
+rujuk puskesmas = -
+==end-data-row-2
+
+
+
+

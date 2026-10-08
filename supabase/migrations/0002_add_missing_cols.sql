@@ -1,0 +1,12 @@
+ALTER TABLE balita ADD COLUMN IF NOT EXISTS telepon TEXT;
+
+ALTER TABLE kunjungan RENAME COLUMN vit_a TO vitamin_a;
+ALTER TABLE kunjungan ADD COLUMN IF NOT EXISTS mpasi TEXT;
+ALTER TABLE kunjungan ADD COLUMN IF NOT EXISTS imunisasi TEXT;
+ALTER TABLE kunjungan ADD COLUMN IF NOT EXISTS pmt_diterima TEXT;
+ALTER TABLE kunjungan ADD COLUMN IF NOT EXISTS edukasi TEXT;
+ALTER TABLE kunjungan ADD COLUMN IF NOT EXISTS ada_gejala_sakit TEXT;
+ALTER TABLE kunjungan ADD COLUMN IF NOT EXISTS override_status_kenaikan_bb TEXT;
+ALTER TABLE kunjungan ADD COLUMN IF NOT EXISTS override_status_lk TEXT;
+ALTER TABLE kunjungan ADD COLUMN IF NOT EXISTS override_status_lila TEXT;
+ALTER TABLE kunjungan ADD COLUMN IF NOT EXISTS override_rujuk BOOLEAN;

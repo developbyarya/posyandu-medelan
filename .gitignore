@@ -1,0 +1,13 @@
+node_modules
+dist
+dev-dist
+coverage
+.env
+.env.local
+*.local
+.vercel
+playwright-report
+test-results
+.DS_Store
+*.log
+__pycache__
