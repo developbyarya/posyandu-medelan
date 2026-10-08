@@ -2,7 +2,7 @@ import type { Balita, KunjunganILP } from '../../db/types';
 import { WILAYAH } from '../../config/wilayah';
 import * as layout from './layout';
 
-function formatDate(iso: string): string {
+function formatDate(iso: string | null | undefined): string {
   if (!iso) return '';
   const d = new Date(iso);
   if (isNaN(d.getTime())) return iso;
@@ -12,13 +12,13 @@ function formatDate(iso: string): string {
   return `${day}-${month}-${year}`;
 }
 
-function formatFloat(num: number | undefined): string {
-  if (num === undefined) return '-';
+function formatFloat(num: number | null | undefined): string {
+  if (num === undefined || num === null) return '-';
   return num.toString().replace('.', ',');
 }
 
-function boolToYaTidak(val: boolean | undefined): string {
-  if (val === undefined) return '-';
+function boolToYaTidak(val: boolean | null | undefined): string {
+  if (val === undefined || val === null) return '-';
   return val ? 'Ya' : 'Tidak';
 }
 
@@ -72,8 +72,8 @@ export async function generateKartuPdf(balita: Balita, visits: KunjunganILP[]): 
     nik: balita.nik || '-',
     jenis_kelamin: balita.jenis_kelamin === 'L' ? 'Laki-laki' : 'Perempuan',
     tanggal_lahir: formatDate(balita.tanggal_lahir),
-    bb_lahir: `${formatFloat(balita.bb_lahir)} kg`,
-    pb_lahir: `${formatFloat(balita.pb_lahir)} cm`,
+    bb_lahir: balita.bb_lahir ? `${formatFloat(balita.bb_lahir)} kg` : '-',
+    pb_lahir: balita.pb_lahir ? `${formatFloat(balita.pb_lahir)} cm` : '-',
     nama_ibu: balita.nama_ortu || (balita as any).nama_ibu || '-',
     nama_ayah: (balita as any).nama_ayah || '-',
     alamat: `Medelan RT ${balita.alamat_rt}, ${WILAYAH.desa}, ${WILAYAH.kecamatan}`,
