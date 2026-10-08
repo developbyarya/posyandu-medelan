@@ -226,18 +226,18 @@ export function Roster() {
                     )}
                   </div>
                   
-                  <div className="flex gap-2 mt-2">
+                  <div className="flex flex-wrap gap-2 mt-2">
                     {isDone ? (
                       <button 
                         onClick={() => navigate(`/kunjungan/${visit.local_uuid}/edit`)}
-                        className="flex-1 py-3 bg-surface border-2 border-primary text-primary font-bold text-lg rounded-lg"
+                        className="flex-1 min-w-[120px] py-3 bg-surface border-2 border-primary text-primary font-bold text-lg rounded-lg"
                       >
                         Edit
                       </button>
                     ) : (
                       <button 
                         onClick={() => navigate(`/timbang/${balita.local_uuid}/bb`)}
-                        className="flex-1 py-3 bg-primary text-on-primary font-bold text-lg rounded-lg"
+                        className="flex-1 min-w-[120px] py-3 bg-primary text-on-primary font-bold text-lg rounded-lg"
                       >
                         Timbang
                       </button>

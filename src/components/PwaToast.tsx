@@ -31,11 +31,11 @@ export function PwaToast() {
         {needRefresh ? (
           <>
             <StatusBadge tone="warn">Versi baru aplikasi tersedia</StatusBadge>
-            <div className="flex gap-3">
-              <BigButton className="flex-1" onClick={() => updateServiceWorker(true)}>
+            <div className="flex flex-wrap gap-3">
+              <BigButton className="flex-1 min-w-[200px]" onClick={() => updateServiceWorker(true)}>
                 Perbarui Sekarang
               </BigButton>
-              <BigButton variant="secondary" onClick={close}>
+              <BigButton className="flex-1 min-w-[120px]" variant="secondary" onClick={close}>
                 Nanti
               </BigButton>
             </div>
