@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../db/db';
-import type { Balita, KunjunganILP } from '../db/types';
 
 const MONTH_NAMES = [
   'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
@@ -12,11 +11,8 @@ export default function RekapPrint() {
   const balitaList = useLiveQuery(() => db.balita.filter(b => !b.deleted_at && !b.is_pindah).toArray(), []);
   const visits = useLiveQuery(() => db.kunjungan.toArray(), []);
 
-  const [readyToPrint, setReadyToPrint] = useState(false);
-
   useEffect(() => {
     if (balitaList && visits) {
-      setReadyToPrint(true);
       // Wait a moment for rendering before triggering print
       setTimeout(() => {
         window.print();

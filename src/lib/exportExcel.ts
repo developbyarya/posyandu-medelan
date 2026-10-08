@@ -29,8 +29,10 @@ export async function exportToExcel() {
   let currentYear = '';
   let yearStartCol = 4; // Start after No, Nama, Ortu, Tgl Lahir
 
-  uniqueMonths.forEach((ym, i) => {
-    const [year, monthStr] = ym.split('-');
+  uniqueMonths.forEach(ym => {
+    const parts = ym.split('-');
+    const year = parts[0] || '';
+    const monthStr = parts[1] || '01';
     const monthName = MONTH_NAMES[parseInt(monthStr, 10) - 1];
 
     if (currentYear !== year) {
