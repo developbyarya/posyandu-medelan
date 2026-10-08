@@ -67,12 +67,12 @@ export default function RekapPrint() {
       <table className="w-full border-collapse border border-black text-center">
         <thead>
           <tr>
-            <th className="border border-black p-1" rowSpan={2}>No</th>
-            <th className="border border-black p-1 min-w-[150px]" rowSpan={2}>Nama Balita</th>
-            <th className="border border-black p-1 min-w-[120px]" rowSpan={2}>Nama Orang Tua</th>
-            <th className="border border-black p-1" rowSpan={2}>Tanggal Lahir</th>
+            <th className="border border-black p-1" rowSpan={3}>No</th>
+            <th className="border border-black p-1 min-w-[150px]" rowSpan={3}>Nama Balita</th>
+            <th className="border border-black p-1 min-w-[120px]" rowSpan={3}>Nama Orang Tua</th>
+            <th className="border border-black p-1" rowSpan={3}>Tanggal Lahir</th>
             {yearSpans.map(ys => (
-              <th key={ys.year} className="border border-black p-1 bg-gray-100" colSpan={ys.colspan}>
+              <th key={ys.year} className="border border-black p-1 bg-gray-200" colSpan={ys.colspan}>
                 {ys.year}
               </th>
             ))}
@@ -81,16 +81,23 @@ export default function RekapPrint() {
             {uniqueMonths.map(ym => {
               const monthName = MONTH_NAMES[parseInt(ym.substring(5, 7), 10) - 1];
               return (
-                <React.Fragment key={ym}>
-                  <th className="border border-black p-1 bg-gray-50">{monthName} BB</th>
-                  <th className="border border-black p-1 bg-gray-50">{monthName} TB</th>
-                  <th className="border border-black p-1 bg-gray-50">{monthName} LK</th>
-                  <th className="border border-black p-1 bg-gray-50">{monthName} LiLA</th>
-                  <th className="border border-black p-1 bg-gray-50">{monthName} Gizi</th>
-                  <th className="border border-black p-1 bg-gray-50">{monthName} Tren</th>
-                </React.Fragment>
+                <th key={ym} className="border border-black p-1 bg-gray-100" colSpan={6}>
+                  {monthName}
+                </th>
               );
             })}
+          </tr>
+          <tr>
+            {uniqueMonths.map(ym => (
+              <React.Fragment key={ym}>
+                <th className="border border-black p-1 bg-gray-50">BB</th>
+                <th className="border border-black p-1 bg-gray-50">TB</th>
+                <th className="border border-black p-1 bg-gray-50">LK</th>
+                <th className="border border-black p-1 bg-gray-50">LiLA</th>
+                <th className="border border-black p-1 bg-gray-50">Gizi</th>
+                <th className="border border-black p-1 bg-gray-50">Tren</th>
+              </React.Fragment>
+            ))}
           </tr>
         </thead>
         <tbody>

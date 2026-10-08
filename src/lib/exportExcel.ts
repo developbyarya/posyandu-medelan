@@ -23,11 +23,17 @@ export async function exportToExcel() {
 
   // Prepare header rows
   const headerRow1: any[] = ['', '', '', ''];
-  const headerRow2: any[] = ['No', 'Nama Balita', 'Nama Orang Tua', 'Tanggal Lahir'];
-  const merges: XLSX.Range[] = [];
+  const headerRow2: any[] = ['', '', '', ''];
+  const headerRow3: any[] = ['No', 'Nama Balita', 'Nama Orang Tua', 'Tanggal Lahir'];
+  const merges: XLSX.Range[] = [
+    { s: { r: 0, c: 0 }, e: { r: 2, c: 0 } },
+    { s: { r: 0, c: 1 }, e: { r: 2, c: 1 } },
+    { s: { r: 0, c: 2 }, e: { r: 2, c: 2 } },
+    { s: { r: 0, c: 3 }, e: { r: 2, c: 3 } },
+  ];
 
   let currentYear = '';
-  let yearStartCol = 4; // Start after No, Nama, Ortu, Tgl Lahir
+  let yearStartCol = 4;
 
   uniqueMonths.forEach(ym => {
     const parts = ym.split('-');
@@ -39,25 +45,33 @@ export async function exportToExcel() {
       if (currentYear !== '') {
         merges.push({
           s: { r: 0, c: yearStartCol },
-          e: { r: 0, c: headerRow1.length - 1 }
+          e: { r: 0, c: headerRow3.length - 1 }
         });
       }
       currentYear = year;
-      yearStartCol = headerRow1.length;
+      yearStartCol = headerRow3.length;
     }
 
-    const cols = [`${monthName} BB`, `${monthName} TB`, `${monthName} LK`, `${monthName} LiLA`, `${monthName} Gizi`, `${monthName} Tren`];
+    const cols = ['BB', 'TB', 'LK', 'LiLA', 'Gizi', 'Tren'];
     
     // Add year label at the start of the year block
     headerRow1.push(year, ...Array(cols.length - 1).fill(''));
-    headerRow2.push(...cols);
+    
+    // Add month label spanning 6 columns
+    headerRow2.push(monthName, ...Array(cols.length - 1).fill(''));
+    merges.push({
+      s: { r: 1, c: headerRow3.length },
+      e: { r: 1, c: headerRow3.length + cols.length - 1 }
+    });
+
+    headerRow3.push(...cols);
   });
 
   // Close the last year merge
   if (currentYear !== '') {
     merges.push({
       s: { r: 0, c: yearStartCol },
-      e: { r: 0, c: headerRow1.length - 1 }
+      e: { r: 0, c: headerRow3.length - 1 }
     });
   }
 
@@ -94,14 +108,14 @@ export async function exportToExcel() {
     return row;
   });
 
-  const aoa = [headerRow1, headerRow2, ...dataRows];
+  const aoa = [headerRow1, headerRow2, headerRow3, ...dataRows];
   const ws = XLSX.utils.aoa_to_sheet(aoa);
   ws['!merges'] = merges;
 
   // Simple auto-fit columns
   const colWidths = [{ wch: 4 }, { wch: 25 }, { wch: 20 }, { wch: 12 }];
-  for (let i = 4; i < headerRow2.length; i++) {
-    colWidths.push({ wch: Math.max(10, headerRow2[i].length + 2) });
+  for (let i = 4; i < headerRow3.length; i++) {
+    colWidths.push({ wch: Math.max(10, headerRow3[i].length + 2) });
   }
   ws['!cols'] = colWidths;
 
