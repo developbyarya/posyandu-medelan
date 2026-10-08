@@ -70,10 +70,30 @@ export function Roster() {
         .sortBy('tanggal_kunjungan');
         
       const blob = await generateKartuPdf(balita, allVisits as KunjunganILP[]);
+      const filename = `Kartu_Bantu_ILP_${balita.nama_balita.replace(/\s+/g, '_')}.pdf`;
+      
+      // Coba gunakan Web Share API (terutama untuk HP agar bisa langsung ke printer/WA)
+      if (navigator.share && navigator.canShare) {
+        const file = new File([blob], filename, { type: 'application/pdf' });
+        if (navigator.canShare({ files: [file] })) {
+          try {
+            await navigator.share({
+              files: [file],
+              title: filename,
+            });
+            return; // Selesai jika share/print berhasil
+          } catch (e) {
+            console.log('Share dibatalkan atau gagal', e);
+            // Lanjut ke fallback download jika gagal
+          }
+        }
+      }
+
+      // Fallback: Download file
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `Kartu_Bantu_ILP_${balita.nama_balita.replace(/\s+/g, '_')}.pdf`;
+      a.download = filename;
       document.body.appendChild(a);
       a.click();
       setTimeout(() => {
